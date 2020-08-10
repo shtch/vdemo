@@ -1,66 +1,38 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import '@vaadin/vaadin-form-layout/vaadin-form-layout.js';
-import '@vaadin/vaadin-form-layout/vaadin-form-item.js';
-import '@vaadin/vaadin-text-field/vaadin-text-field.js';
 import '@vaadin/vaadin-text-field/vaadin-text-area.js';
-import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-ordered-layout/vaadin-horizontal-layout.js';
 import '@vaadin/vaadin-ordered-layout/vaadin-vertical-layout.js';
+import '@vaadin/vaadin-ordered-layout/src/vaadin-vertical-layout.js';
+import '@vaadin/vaadin-ordered-layout/src/vaadin-horizontal-layout.js';
+import '@vaadin/vaadin-button/src/vaadin-button.js';
 
 class Page07View extends PolymerElement {
   static get template() {
     return html`
-      <custom-style>
-        <style include="shared-styles lumo-typography">
-          #page07-view {
-            display: block;
-            padding: 1rem;
-          }
-
-          :host {
-            display: block;
-            padding: 1rem;
-          }
-
-          .button-layout {
-            display: flex;
-            flex-wrap: wrap-reverse;
-            width: 100%;
-            justify-content: flex-end;
-          }
-        </style>
-      </custom-style>
-
-      <vaadin-vertical-layout id="wrapper" theme="padding">
-        <h1>Form</h1>
-        <vaadin-form-layout>
-          <vaadin-form-item>
-            <label slot="label">First name</label>
-            <vaadin-text-field id="firstName" class="full-width" value=""></vaadin-text-field>
-          </vaadin-form-item>
-          <vaadin-form-item>
-            <label slot="label">Last name</label>
-            <vaadin-text-field id="lastName" class="full-width" value=""></vaadin-text-field>
-          </vaadin-form-item>
-          <vaadin-form-item colspan="2">
-            <label slot="label">Email</label>
-            <vaadin-text-field id="email" class="full-width" value=""></vaadin-text-field>
-          </vaadin-form-item>
-        </vaadin-form-layout>
-        <vaadin-horizontal-layout
-          theme="spacing"
-          style="display:flex;flex-wrap:wrap-reverse;width:100%;justify-content:flex-end;"
-        >
-          <vaadin-button theme="tertiary" id="cancel" slot="">
-            Cancel
-          </vaadin-button>
-          <vaadin-button theme="primary" id="save">
-            Save
-          </vaadin-button>
-        </vaadin-horizontal-layout>
-      </vaadin-vertical-layout>
-    `;
+<vaadin-vertical-layout style="width: 100%; height: 100%; padding: var(--lumo-space-xl);">
+ <h1>Вы записаны</h1>
+ <h2>MK№ 12555/20-2 Петров Петр Петрович</h2>
+ <vaadin-vertical-layout style="align-self: center; margin: var(--lumo-space-xl);" theme="spacing-l">
+  <vaadin-vertical-layout style="align-self: center; margin: var(--lumo-space-xl); padding: var(--lumo-space-l);" theme="spacing-xs" border="">
+   <h3>Четверг, 20 августа 8:20</h3>
+   <h5>Акушер</h5>
+   <h3>Кабинет №1</h3>
+   <h5>ПМУ</h5>
+  </vaadin-vertical-layout>
+  <vaadin-horizontal-layout style="justify-content: space-around; align-self: stretch;">
+   <vaadin-button>
+     Перенести 
+   </vaadin-button>
+   <vaadin-button>
+     Отменить 
+   </vaadin-button>
+  </vaadin-horizontal-layout>
+ </vaadin-vertical-layout>
+ <vaadin-button id="back" style="align-self: center;" theme="secondaty">
+  Записаться
+ </vaadin-button>
+</vaadin-vertical-layout>
+`;
   }
 
   static get is() {

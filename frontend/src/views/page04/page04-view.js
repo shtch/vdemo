@@ -11,56 +11,21 @@ import '@vaadin/vaadin-ordered-layout/vaadin-vertical-layout.js';
 class Page04View extends PolymerElement {
   static get template() {
     return html`
-      <custom-style>
-        <style include="shared-styles lumo-typography">
-          #page04-view {
-            display: block;
-            padding: 1rem;
-          }
-
-          :host {
-            display: block;
-            padding: 1rem;
-          }
-
-          .button-layout {
-            display: flex;
-            flex-wrap: wrap-reverse;
-            width: 100%;
-            justify-content: flex-end;
-          }
-        </style>
-      </custom-style>
-
-      <vaadin-vertical-layout id="wrapper" theme="padding">
-        <h1>Form</h1>
-        <vaadin-form-layout>
-          <vaadin-form-item>
-            <label slot="label">First name</label>
-            <vaadin-text-field id="firstName" class="full-width" value=""></vaadin-text-field>
-          </vaadin-form-item>
-          <vaadin-form-item>
-            <label slot="label">Last name</label>
-            <vaadin-text-field id="lastName" class="full-width" value=""></vaadin-text-field>
-          </vaadin-form-item>
-          <vaadin-form-item colspan="2">
-            <label slot="label">Email</label>
-            <vaadin-text-field id="email" class="full-width" value=""></vaadin-text-field>
-          </vaadin-form-item>
-        </vaadin-form-layout>
-        <vaadin-horizontal-layout
-          theme="spacing"
-          style="display:flex;flex-wrap:wrap-reverse;width:100%;justify-content:flex-end;"
-        >
-          <vaadin-button theme="tertiary" id="cancel" slot="">
-            Cancel
-          </vaadin-button>
-          <vaadin-button theme="primary" id="save">
-            Save
-          </vaadin-button>
-        </vaadin-horizontal-layout>
-      </vaadin-vertical-layout>
-    `;
+<vaadin-vertical-layout>
+ <vaadin-vertical-layout theme="padding spacing-xl" style="max-width: 60rem; align-self: center; padding: var(--lumo-space-xl);">
+  <h3 style="text-align: center; align-self: center;">Введите код из СМС</h3>
+  <vaadin-form-layout responsive-steps="[{&quot;columns&quot;: 1}]" style="align-self: center; align-items:center;">
+   <vaadin-text-field id="sms" placeholder=""></vaadin-text-field>
+  </vaadin-form-layout>
+  <vaadin-button id="next" theme="primary" style="align-self: center; min-width: 150px;">
+    Отправить 
+  </vaadin-button>
+  <vaadin-button id="home" theme="secondary" style="align-self: center; min-width: 150px;">
+    Отмена 
+  </vaadin-button>
+ </vaadin-vertical-layout>
+</vaadin-vertical-layout>
+`;
   }
 
   static get is() {

@@ -1,15 +1,12 @@
 package ru.vapp.views.page06;
 
-import ru.vapp.data.entity.Person;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
-import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -17,7 +14,8 @@ import ru.vapp.views.main.MainView;
 
 import ru.vapp.views.page06.Page06View.Page06ViewModel;
 
-@Route(value = "form4", layout = MainView.class)
+@Route(value = "form6", layout = MainView.class)
+@RouteAlias(value = "Page06", layout = MainView.class)
 @PageTitle("Page06")
 @JsModule("./src/views/page06/page06-view.js")
 @Tag("page06-view")
@@ -36,24 +34,23 @@ public class Page06View extends PolymerTemplate<Page06ViewModel> {
     @Id
     private TextField lastName;
     @Id
-    private TextField email;
+    private TextField middleName;
 
     @Id
-    private Button cancel;
+    private Button next;
     @Id
-    private Button save;
+    private Button home;
 
     public Page06View() {
 
         // Configure Form
-        Binder<Person> binder = new Binder<>(Person.class);
+//        Binder<Person> binder = new Binder<>(Person.class);
 
         // Bind fields. This where you'd define e.g. validation rules
-        binder.bindInstanceFields(this);
+//        binder.bindInstanceFields(this);
 
-        cancel.addClickListener(e -> binder.readBean(null));
-        save.addClickListener(e -> {
-            Notification.show("Not implemented");
-        });
+        next.addClickListener(e -> next.getUI().ifPresent(ui -> ui.navigate("Page07")));
+        home.addClickListener(e -> next.getUI().ifPresent(ui -> ui.navigate("")));
+
     }
 }

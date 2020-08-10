@@ -2,25 +2,25 @@ package ru.vapp.data.generator;
 
 import com.vaadin.flow.spring.annotation.SpringComponent;
 
-import ru.vapp.data.service.PersonRepository;
-import ru.vapp.data.entity.Person;
+import org.vaadin.artur.exampledata.DataType;
+import ru.vapp.data.service.OrderxRepository;
+import ru.vapp.data.entity.Orderx;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 
 @SpringComponent
 public class DataGenerator {
 
     @Bean
-    public CommandLineRunner loadData(PersonRepository personRepository) {
+    public CommandLineRunner loadData(OrderxRepository orderxRepository) {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
-            if (personRepository.count() != 0L) {
+            if (orderxRepository.count() != 0L) {
                 logger.info("Using existing database");
                 return;
             }
@@ -29,11 +29,11 @@ public class DataGenerator {
             logger.info("Generating demo data");
 
             logger.info("... generating 100 Person entities...");
-            ExampleDataGenerator<Person> personRepositoryGenerator = new ExampleDataGenerator<>(Person.class, seed);
-            personRepositoryGenerator.setData(Person::setFirstName, DataType.FIRST_NAME);
-            personRepositoryGenerator.setData(Person::setLastName, DataType.LAST_NAME);
-            personRepositoryGenerator.setData(Person::setEmail, DataType.EMAIL);
-            personRepository.saveAll(personRepositoryGenerator.create(100));
+            ExampleDataGenerator<Orderx> orderxRepositoryGenerator = new ExampleDataGenerator<>(Orderx.class, seed);
+            orderxRepositoryGenerator.setData(Orderx::setOrderDate, DataType.FIRST_NAME);
+            orderxRepositoryGenerator.setData(Orderx::setOrderMethod, DataType.LAST_NAME);
+            orderxRepositoryGenerator.setData(Orderx::setOrderLocation, DataType.LAST_NAME);
+            orderxRepository.saveAll(orderxRepositoryGenerator.create(10));
 
 
 

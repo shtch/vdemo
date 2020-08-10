@@ -43,8 +43,9 @@ public class MainView extends AppLayout {
 
     public MainView() {
         HorizontalLayout header = createHeader();
+
 //        menu = createMenuTabs();
-//        addToNavbar(createTopBar(header, menu));
+        addToNavbar(createTopBar(header, null));
     }
 
     private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu) {
@@ -54,7 +55,7 @@ public class MainView extends AppLayout {
         layout.setSpacing(false);
         layout.setPadding(false);
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
-        layout.add(header, menu);
+        layout.add(header);
         return layout;
     }
 
@@ -65,7 +66,7 @@ public class MainView extends AppLayout {
         header.setWidthFull();
         header.setAlignItems(FlexComponent.Alignment.CENTER);
         header.setId("header");
-        Image logo = new Image("images/logos/18.png",
+        Image logo = new Image("images/logos/login-banner.jpg",
                 "Weblk logo");
         logo.setId("logo");
         header.add(logo);
