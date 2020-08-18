@@ -15,7 +15,7 @@ class Page02View extends PolymerElement {
     return html`
 <style include="shared-styles lumo-badge lumo-typography">
         :host {
-          background-color: var(--lumo-contrast-10pct);
+
           box-sizing: border-box;
           display: block;
           font-size: var(--lumo-font-size-m);
@@ -113,8 +113,8 @@ class Page02View extends PolymerElement {
    </vaadin-form-item>
   </vaadin-form-layout>
   <vaadin-vertical-layout style="align-items: stretch; align-self: stretch;">
-   <vaadin-horizontal-layout style="align-self: center;">
-    <vaadin-button>
+   <vaadin-horizontal-layout style="align-self: center; flex-shrink: 0; flex-grow: 0; flex-direction: row;">
+    <vaadin-button style="flex-shrink: 0;">
      <iron-icon icon="lumo:chevron-left"></iron-icon>
     </vaadin-button>
     <vaadin-date-picker value="2020-08-20" style="width: 150px;"></vaadin-date-picker>
@@ -125,62 +125,31 @@ class Page02View extends PolymerElement {
    <vaadin-horizontal-layout style="align-self: center;">
     <h5>Утро </h5>
    </vaadin-horizontal-layout>
-   <vaadin-horizontal-layout style="padding: var(--lumo-space-m); justify-content: space-evenly; width: 100%;">
-    <vaadin-button id="ts1" theme="success primary">
-      8:20 
-    </vaadin-button>
-    <vaadin-button theme="error primary" disabled>
-      8:40 
-    </vaadin-button>
-    <vaadin-button theme="success primary">
-      9:00 
-    </vaadin-button>
-    <vaadin-button theme="success primary">
-      9:20 
-    </vaadin-button>
-    <vaadin-button></vaadin-button>
-    <vaadin-button></vaadin-button>
-   </vaadin-horizontal-layout>
+   <vaadin-form-layout responsive-steps="[
+      {&quot;minWidth&quot;: 0, &quot;columns&quot;: 3},
+      {&quot;minWidth&quot;: &quot;300px&quot;, &quot;columns&quot;: 4},
+      {&quot;minWidth&quot;: &quot;400px&quot;, &quot;columns&quot;: 5},
+      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 6}
+    ]"  id="morning"></vaadin-form-layout>
    <vaadin-horizontal-layout style="justify-content: center;">
     <h5>День</h5>
    </vaadin-horizontal-layout>
-   <vaadin-horizontal-layout style="padding: var(--lumo-space-m); justify-content: space-evenly;">
-    <vaadin-button theme="error primary" disabled>
-      14:20 
-    </vaadin-button>
-    <vaadin-button theme="success primary">
-      14:40 
-    </vaadin-button>
-    <vaadin-button theme="success primary">
-      15:00 
-    </vaadin-button>
-    <vaadin-button theme="error primary" disabled>
-      15:20 
-    </vaadin-button>
-    <vaadin-button theme="error primary" disabled>
-      15:40 
-    </vaadin-button>
-    <vaadin-button></vaadin-button>
-   </vaadin-horizontal-layout>
+   <vaadin-form-layout responsive-steps="[
+      {&quot;minWidth&quot;: 0, &quot;columns&quot;: 3},
+      {&quot;minWidth&quot;: &quot;300px&quot;, &quot;columns&quot;: 4},
+      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 6}
+    ]"  id="day"></vaadin-form-layout>
    <vaadin-horizontal-layout style="justify-content: center;">
     <h5>Вечер</h5>
    </vaadin-horizontal-layout>
-   <vaadin-horizontal-layout style="padding: var(--lumo-space-m); justify-content: space-evenly;">
-    <vaadin-button theme="error primary" disabled>
-      18:00 
-    </vaadin-button>
-    <vaadin-button theme="error primary" disabled>
-      18:20 
-    </vaadin-button>
-    <vaadin-button theme="error primary" disabled>
-      18:40 
-    </vaadin-button>
-    <vaadin-button></vaadin-button>
-    <vaadin-button></vaadin-button>
-    <vaadin-button></vaadin-button>
-   </vaadin-horizontal-layout>
+   <vaadin-form-layout responsive-steps="[
+      {&quot;minWidth&quot;: 0, &quot;columns&quot;: 3},
+      {&quot;minWidth&quot;: &quot;300px&quot;, &quot;columns&quot;: 4},
+      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 6}
+    ]" id="evening"></vaadin-form-layout>
+   <vaadin-horizontal-layout></vaadin-horizontal-layout>
    <vaadin-button id="back" theme="secondary" style="align-self: center; min-width: 150px;">
-    Назад
+     Назад 
    </vaadin-button>
   </vaadin-vertical-layout>
  </vaadin-vertical-layout>

@@ -1,22 +1,13 @@
 package ru.vapp.views.page02;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.charts.Chart;
-import com.vaadin.flow.component.charts.model.Configuration;
-import com.vaadin.flow.component.charts.model.Crosshair;
-import com.vaadin.flow.component.charts.model.ListSeries;
-import com.vaadin.flow.component.charts.model.XAxis;
-import com.vaadin.flow.component.charts.model.YAxis;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import ru.vapp.views.main.MainView;
@@ -30,14 +21,48 @@ import ru.vapp.views.page02.Page02View.Page02ViewModel;
 @Tag("page02-view")
 public class Page02View extends PolymerTemplate<Page02ViewModel> implements
         AfterNavigationObserver {
-    @Id("ts1")
-    private Button ts1;
     @Id("back")
     private Button back;
+    @Id("evening")
+    private FormLayout evening;
+    @Id("morning")
+    private FormLayout morning;
+    @Id("day")
+    private FormLayout day;
 
     @Override
     public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+        addButton("8:00",morning);
+        addButton("8:20",morning);
+        addButton("8:40",morning);
+        addButton("9:00",morning);
+        addButton("9:20",morning);
+        addButton("9:40",morning);
 
+        addButton("13:00",day);
+        addButton("13:20",day);
+        addButton("13:40",day);
+        addButton("14:00",day);
+        addButton("14:20",day);
+        addButton("14:40",day);
+
+        addButton("18:00",evening);
+        addButton("18:20",evening);
+        addButton("18:40",evening);
+        addButton("19:00",evening);
+        addButton("19:20",evening);
+        addButton("19:40",evening);
+    }
+
+
+    private void addButton( String timeText, FormLayout panel) {
+        Button ts = new Button(timeText);
+        ts.addClickListener(getPage03(ts));
+        panel.add(ts);
+    }
+
+    private ComponentEventListener<ClickEvent<Button>> getPage03(Button ts) {
+        return e -> ts.getUI().ifPresent(ui -> ui.navigate("Page03"));
     }
 
     // This is the Java companion file of a design
@@ -51,12 +76,12 @@ public class Page02View extends PolymerTemplate<Page02ViewModel> implements
     public static interface Page02ViewModel extends TemplateModel {
 
 
-
     }
 
 
     public Page02View() {
-        ts1.addClickListener(e -> ts1.getUI().ifPresent(ui -> ui.navigate("Page03")));
+
+//        ts1.addClickListener(e -> ts1.getUI().ifPresent(ui -> ui.navigate("Page03")));
         back.addClickListener(e -> back.getUI().ifPresent(ui -> ui.navigate("")));
 //        home.addClickListener(e -> next.getUI().ifPresent(ui -> ui.navigate("")));
 
