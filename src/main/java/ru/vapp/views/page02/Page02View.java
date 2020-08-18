@@ -4,15 +4,23 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.router.*;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.templatemodel.TemplateModel;
+import ru.vapp.data.entity.OrderEntity;
 import ru.vapp.views.main.MainView;
 
 import ru.vapp.views.page02.Page02View.Page02ViewModel;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 @Route(value = "form2", layout = MainView.class)
 @RouteAlias(value = "Page02", layout = MainView.class)
@@ -29,9 +37,35 @@ public class Page02View extends PolymerTemplate<Page02ViewModel> implements
     private FormLayout morning;
     @Id("day")
     private FormLayout day;
+    @Id("dateplan")
+    private DatePicker dateplan;
+    @Id("next")
+    private Button next;
+    @Id("prev")
+    private Button prev;
+    @Id("doctor")
+    private Label doctor;
+    @Id("payment_type")
+    private Label payment_type;
+    @Id("branch")
+    private Label branch;
 
     @Override
     public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+        VaadinSession vaadinSession = VaadinSession.getCurrent();
+        if(vaadinSession!=null && vaadinSession.hasLock()){
+            OrderEntity orderEntity = vaadinSession.getAttribute(OrderEntity.class);
+            if (orderEntity !=null){
+                doctor.setText(orderEntity.getDoctor());
+                payment_type.setText(orderEntity.getPayment_type());
+                branch.setText(orderEntity.getBranch());
+            }
+        }
+        UpdateButtons();
+
+    }
+
+    private void UpdateButtons() {
         addButton("8:00",morning);
         addButton("8:20",morning);
         addButton("8:40",morning);
@@ -57,6 +91,7 @@ public class Page02View extends PolymerTemplate<Page02ViewModel> implements
 
     private void addButton( String timeText, FormLayout panel) {
         Button ts = new Button(timeText);
+
         ts.addClickListener(getPage03(ts));
         panel.add(ts);
     }
@@ -81,7 +116,18 @@ public class Page02View extends PolymerTemplate<Page02ViewModel> implements
 
     public Page02View() {
 
+        dateplan.setLocale(Locale.forLanguageTag("ru"));
+        dateplan.setMin(LocalDate.now());
+        dateplan.setValue(LocalDate.now().plus(1, ChronoUnit.DAYS));
+        dateplan.setMax(LocalDate.now().plus(1, ChronoUnit.MONTHS));
+        dateplan.addValueChangeListener(e -> {
+            if(e.getValue() != null){
+                e.getValue();
+            }
+        });
 //        ts1.addClickListener(e -> ts1.getUI().ifPresent(ui -> ui.navigate("Page03")));
+        prev.addClickListener(e -> dateplan.setValue(dateplan.getValue().minus(1,ChronoUnit.DAYS)));
+        next.addClickListener(e -> dateplan.setValue(dateplan.getValue().plus(1,ChronoUnit.DAYS)));
         back.addClickListener(e -> back.getUI().ifPresent(ui -> ui.navigate("")));
 //        home.addClickListener(e -> next.getUI().ifPresent(ui -> ui.navigate("")));
 

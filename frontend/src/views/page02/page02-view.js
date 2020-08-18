@@ -3,12 +3,12 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import '@vaadin/vaadin-lumo-styles/all-imports.js';
 import '@vaadin/vaadin-ordered-layout/src/vaadin-vertical-layout.js';
 import '@vaadin/vaadin-form-layout/src/vaadin-form-layout.js';
-import '@vaadin/vaadin-form-layout/src/vaadin-form-item.js';
 import '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
 import '@vaadin/vaadin-date-picker/src/vaadin-date-picker.js';
+import '@vaadin/vaadin-button/src/vaadin-button.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@vaadin/vaadin-ordered-layout/src/vaadin-horizontal-layout.js';
-import '@vaadin/vaadin-button/src/vaadin-button.js';
+import '@vaadin/vaadin-form-layout/src/vaadin-form-item.js';
 
 class Page02View extends PolymerElement {
   static get template() {
@@ -99,26 +99,26 @@ class Page02View extends PolymerElement {
  <vaadin-vertical-layout theme="padding" style="max-width: 50rem;">
   <vaadin-form-layout responsive-steps="[{&quot;columns&quot;: 1}]" style="align-self: stretch;">
    <h5 style="text-align: center; align-self: center;">Расписание приема</h5>
-   <vaadin-form-item>
-    <label slot="label">Врач: </label>
-    <label slot="label"> Акушер</label>
-   </vaadin-form-item>
-   <vaadin-form-item>
-    <label slot="label">Филиал: </label>
-    <label slot="label"> КДО </label>
-   </vaadin-form-item>
-   <vaadin-form-item>
-    <label slot="label">Оплата:</label>
-    <label slot="label"> ПМУ</label>
-   </vaadin-form-item>
+   <vaadin-horizontal-layout theme="spacing" style="justify-content: flex-start;">
+    <label slot="">Оплата:</label>
+    <label slot="" id="payment_type"> ПМУ</label>
+   </vaadin-horizontal-layout>
+   <vaadin-horizontal-layout theme="spacing" style="justify-content: flex-start;">
+    <label slot="">Филиал: </label>
+    <label slot="" id="branch"> КДО </label>
+   </vaadin-horizontal-layout>
+   <vaadin-horizontal-layout theme="spacing" style="justify-content: flex-start;">
+    <label slot="">Врач: </label>
+    <label slot="" id="doctor"> Акушер</label>
+   </vaadin-horizontal-layout>
   </vaadin-form-layout>
   <vaadin-vertical-layout style="align-items: stretch; align-self: stretch;">
-   <vaadin-horizontal-layout style="align-self: center; flex-shrink: 0; flex-grow: 0; flex-direction: row;">
-    <vaadin-button style="flex-shrink: 0;">
+   <vaadin-horizontal-layout style="align-self: center;">
+    <vaadin-button style="width: 240px; max-width: 20px;" id="prev">
      <iron-icon icon="lumo:chevron-left"></iron-icon>
     </vaadin-button>
-    <vaadin-date-picker value="2020-08-20" style="width: 150px;"></vaadin-date-picker>
-    <vaadin-button>
+    <vaadin-date-picker value="2020-08-20" style="width: 150px;" id="dateplan"></vaadin-date-picker>
+    <vaadin-button id="next" style="width: 20px; max-width: 20px;">
      <iron-icon icon="lumo:chevron-right"></iron-icon>
     </vaadin-button>
    </vaadin-horizontal-layout>
@@ -127,25 +127,25 @@ class Page02View extends PolymerElement {
    </vaadin-horizontal-layout>
    <vaadin-form-layout responsive-steps="[
       {&quot;minWidth&quot;: 0, &quot;columns&quot;: 3},
-      {&quot;minWidth&quot;: &quot;300px&quot;, &quot;columns&quot;: 4},
-      {&quot;minWidth&quot;: &quot;400px&quot;, &quot;columns&quot;: 5},
-      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 6}
-    ]"  id="morning"></vaadin-form-layout>
+      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 4},
+      {&quot;minWidth&quot;: &quot;600px&quot;, &quot;columns&quot;: 5},
+      {&quot;minWidth&quot;: &quot;700px&quot;, &quot;columns&quot;: 6}
+    ]" id="morning"></vaadin-form-layout>
    <vaadin-horizontal-layout style="justify-content: center;">
     <h5>День</h5>
    </vaadin-horizontal-layout>
    <vaadin-form-layout responsive-steps="[
       {&quot;minWidth&quot;: 0, &quot;columns&quot;: 3},
-      {&quot;minWidth&quot;: &quot;300px&quot;, &quot;columns&quot;: 4},
-      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 6}
-    ]"  id="day"></vaadin-form-layout>
+      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 4},
+      {&quot;minWidth&quot;: &quot;700px&quot;, &quot;columns&quot;: 6}
+    ]" id="day"></vaadin-form-layout>
    <vaadin-horizontal-layout style="justify-content: center;">
     <h5>Вечер</h5>
    </vaadin-horizontal-layout>
    <vaadin-form-layout responsive-steps="[
       {&quot;minWidth&quot;: 0, &quot;columns&quot;: 3},
-      {&quot;minWidth&quot;: &quot;300px&quot;, &quot;columns&quot;: 4},
-      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 6}
+      {&quot;minWidth&quot;: &quot;500px&quot;, &quot;columns&quot;: 4},
+      {&quot;minWidth&quot;: &quot;700px&quot;, &quot;columns&quot;: 6}
     ]" id="evening"></vaadin-form-layout>
    <vaadin-horizontal-layout></vaadin-horizontal-layout>
    <vaadin-button id="back" theme="secondary" style="align-self: center; min-width: 150px;">

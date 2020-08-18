@@ -8,9 +8,11 @@ import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.vapp.data.entity.OrderEntity;
@@ -26,9 +28,11 @@ import ru.vapp.views.page01.Page01View.Page01ViewModel;
 @JsModule("./src/views/page01/page01-view.js")
 @Tag("page01-view")
 public class Page01View extends PolymerTemplate<Page01ViewModel> {
-    OrderEntity neworder;
+    OrderEntity orderentity;
+    OrderService neworderservice;
 
     private Binder<OrderEntity> binder;
+
     @Id("doctor")
     private ComboBox<String> doctor;
     @Id("branch")
@@ -44,6 +48,10 @@ public class Page01View extends PolymerTemplate<Page01ViewModel> {
     @Id("next")
     private Button next;
 
+    public OrderEntity getOrderentity() {
+        return orderentity;
+    }
+
     // This is the Java companion file of a design
     // You can find the design file in /frontend/src/views/src/views/page01/page01-view.js
     // The design can be easily edited by using Vaadin Designer (vaadin.com/designer)
@@ -54,20 +62,20 @@ public class Page01View extends PolymerTemplate<Page01ViewModel> {
 
 
     public Page01View(@Autowired OrderService orderService) {
+        neworderservice = orderService;
         
-        method.setItems("Акушера","Хирурга","Онколога");
+        method.setItems("Акушер","Хирург","Онколог");
         doctor.setItems("Сидоренко А.П.","Петров И.И", "Гинзбург С.Л.");
         branch.setItems("КДЦ","Филиал №2");
         payment_type.setItems("ОМС","ПМУ");
         prefer_time.setItems("Не важно","Утро","День","Вечер");
+        prefer_time.setValue("Не важно");
 
         binder = new BeanValidationBinder<>(OrderEntity.class);
-        newOrder();
+
 
         binder.bindInstanceFields(this);
 
-        binder.readBean(neworder);
-        binder.setBean(neworder);
         // Configure Form
 //        Binder<Person> binder = new Binder<>(Person.class);
 
@@ -76,16 +84,29 @@ public class Page01View extends PolymerTemplate<Page01ViewModel> {
 
         binder.addStatusChangeListener(evt -> next.setEnabled(binder.isValid()));
 
-        next.addClickListener(e -> next.getUI().ifPresent(ui -> ui.navigate("Page02")));
+        next.addClickListener(e -> goNext());
         enter.addClickListener(e -> enter.getUI().ifPresent(ui -> ui.navigate("Page03")));
 ////        save.addClickListener(e -> {
 //            Notification.show("Not implemented");
 //        });
     }
 
-    void newOrder(){
-        if (neworder == null){
-            neworder = new OrderEntity();
+    private void goNext() {
+        if (orderentity == null) {
+            orderentity = new OrderEntity();
         }
+
+        try {
+            binder.writeBean(orderentity);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+        VaadinSession vaadinSession = VaadinSession.getCurrent();
+        if(vaadinSession!=null && vaadinSession.hasLock()){
+            vaadinSession.setAttribute(OrderEntity.class,orderentity);
+        }
+        next.getUI().ifPresent(ui -> ui.navigate("Page02"));
     }
+
+
 }
